@@ -8,3 +8,17 @@ services:
       - ./project:/usr/src/app
     ports:
       - 6969:8000
+    env_file:
+      - ./project/.env
+    depends_on:
+      - web-db
+
+  #postgres
+  web-db:
+    build:
+      context: ./project/db
+      dockerfile: Dockerfile
+    expose:
+      - 5432
+    env_file:
+      - ./project/.env

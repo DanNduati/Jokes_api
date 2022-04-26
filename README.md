@@ -37,16 +37,28 @@ uvicorn app.main:app --reload
 ```
 
 ### <b> 2. Docker</b>
-#### 1. Build the image
-```bash
-docker-compose build
-```
 
-#### 2. Start the container
-Once the build is done, fire up the container
+#### Build image and run container
+Build the image and fire up the container in detached mode
 ```bash
-docker compose --env-file ./project/.env up
+docker compose up -d --build
 ```
-
+#### Check logs for the `web` service
+```bash
+docker compose logs web
+```
+#### Access db directly via psql
+```bash
+docker compose exec web-db psql -U postgres
+```
+Then you can connect to the database:
+```bash
+postgres=# \c web_dev
+# show jokes table definition
+postgres=# \d jokes
+#quit
+postgres=# \q
+```
+View more psql commands in [me cheatsheet](https://github.com/DanNduati/cheatsheets/blob/main/Postgres.md)
 ## <b>License</b>
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge)](LICENSE)
