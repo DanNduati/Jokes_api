@@ -41,7 +41,7 @@ uvicorn app.main:app --reload
 #### Build image and run container
 Build the image and fire up the container in detached mode
 ```bash
-docker compose --env-file ./project/.env up -d --build
+docker compose up -d --build
 ```
 #### Check logs for the `web` service
 ```bash
