@@ -37,15 +37,15 @@ uvicorn app.main:app --reload
 ```
 
 ### <b> 2. Docker</b>
-#### 1. Build the image
-```bash
-docker-compose build
-```
 
-#### 2. Start the container
-Once the build is done, fire up the container
+#### Build image and run container
+Build the image and fire up the container in detached mode
 ```bash
-docker compose --env-file ./project/.env up
+docker compose --env-file ./project/.env up -d --build
+```
+#### Check logs for the `web` service
+```bash
+docker compose logs web
 ```
 
 ## <b>License</b>
