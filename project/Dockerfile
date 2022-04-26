@@ -19,7 +19,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 COPY ./scripts/entrypoint.sh .
-RUN chmod +x usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/scripts/entrypoint.sh
 
 #run the script
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/app/scripts/entrypoint.sh"]
