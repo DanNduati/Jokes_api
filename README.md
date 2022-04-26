@@ -47,6 +47,18 @@ docker compose --env-file ./project/.env up -d --build
 ```bash
 docker compose logs web
 ```
-
+#### Access db directly via psql
+```bash
+docker compose exec web-db psql -U postgres
+```
+Then you can connect to the database:
+```bash
+postgres=# \c web_dev
+# show jokes table definition
+postgres=# \d jokes
+#quit
+postgres=# \q
+```
+View more psql commands in [me cheatsheet](https://github.com/DanNduati/cheatsheets/blob/main/Postgres.md)
 ## <b>License</b>
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge)](LICENSE)
