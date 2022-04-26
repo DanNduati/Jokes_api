@@ -20,3 +20,5 @@ class Settings(BaseSettings):
 def get_settings() -> BaseSettings:
     log.info("Loading config settings from the environment...")
     return Settings()
+
+settingz = Settings()
