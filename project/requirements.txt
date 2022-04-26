@@ -1,3 +1,4 @@
+aiosqlite==0.17.0
 anyio==3.5.0
 asgiref==3.5.0
 asyncpg==0.25.0
@@ -11,18 +12,22 @@ h11==0.13.0
 httptools==0.4.0
 idna==3.3
 importlib-metadata==4.11.3
+iso8601==1.0.2
 itsdangerous==2.1.2
 Jinja2==3.1.1
 MarkupSafe==2.1.1
 orjson==3.6.8
 pydantic==1.9.0
+pypika-tortoise==0.1.4
 python-dotenv==0.20.0
 python-multipart==0.0.5
+pytz==2022.1
 PyYAML==6.0
 requests==2.27.1
 six==1.16.0
 sniffio==1.2.0
 starlette==0.17.1
+tortoise-orm==0.19.0
 typing_extensions==4.2.0
 ujson==5.2.0
 urllib3==1.26.9
