@@ -1,13 +1,11 @@
 import os
 import logging
-from os.path import dirname,join
-from functools import lru_cache
+from os.path import join
 from pydantic import BaseSettings, Field,AnyUrl
 
 log = logging.getLogger("uvicorn")
 
 dotenv_path = join(os.getcwd(),".env")
-#dotenv_path = dirname(__file__)
 
 class Settings(BaseSettings):
     environment: str = Field(default="dev", env="ENVIRONMENT")
@@ -15,10 +13,5 @@ class Settings(BaseSettings):
     database_url:AnyUrl = Field(...,env="DATABASE_URL")
     class Config:
         env_file = dotenv_path
-        
-@lru_cache()
-def get_settings() -> BaseSettings:
-    log.info("Loading config settings from the environment...")
-    return Settings()
 
-settingz = Settings()
+settings = Settings()
