@@ -60,5 +60,21 @@ postgres=# \d jokes
 postgres=# \q
 ```
 View more psql commands in [me cheatsheet](https://github.com/DanNduati/cheatsheets/blob/main/Postgres.md)
+
+#### Run the tests
+```bash
+$ docker compose exec web python -m pytest -v
+============================================ test session starts =============================================
+platform linux -- Python 3.7.13, pytest-7.1.2, pluggy-1.0.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /usr/src/app
+plugins: anyio-3.5.0
+collected 1 item                                                                                             
+
+tests/test_ping.py::test_ping PASSED                                                                   [100%]
+
+============================================= 1 passed in 0.26s ==============================================
+```
+
 ## <b>License</b>
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge)](LICENSE)
