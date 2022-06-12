@@ -79,12 +79,13 @@ server: uvicorn
 ```
 You can also interact with the endpoints at http://0.0.0.0:6969/docs
 ## <b>Built with</b>
-- Python 3.7
 - FastAPI
-- Docker
+- Docker 
 - Pipenv
 - Black
 - Isort
-
+- Flake8
+- Pytest
+- Tortoise ORM
 ## <b>License</b>
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge)](LICENSE)
