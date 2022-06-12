@@ -2,7 +2,7 @@
 <h2 align="center"><b>Test-Driven Development with FastAPI and Docker</b></h2>
 
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/DanNduati/Jokes_api)
-![Actions Status](https://github.com/DanNduati/Jokes_api/workflows/JokesAPI%20Continous%20Integration%20and%20Delivery/badge.svg)
+![Actions Status](https://github.com/DanNduati/Jokes_api/workflows/Build%20and%20Test/badge.svg)
 ## <b>Description</b>
 The JokesAPI is a test-driven development project. This is me learning how to develop and test an asynchronous API built with FastAPI, Postgres, pytest and Docker.
 

@@ -1,4 +1,4 @@
-name: JokesAPI Continous Integration and Delivery
+name: Build and Test
 
 on: [push]
 
