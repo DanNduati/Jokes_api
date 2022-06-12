@@ -17,7 +17,7 @@ jobs:
       - name: Login to Github Packages
         run: echo ${CR_PAT} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
         env:
-          CR_PAT: ${{ secrets.GITHUB_TOKEN }}
+          CR_PAT: ${{ secrets.CR_PAT }}
       - name: Pull Image
         run: |
           docker pull ${{ env.IMAGE }}:latest || true
@@ -44,7 +44,7 @@ jobs:
       - name: Login to Github Packages
         run:  echo ${CR_PAT} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
         env:
-          CR_PAT: ${{ secrets.GITHUB_TOKEN }}
+          CR_PAT: ${{ secrets.CR_PAT }}
       - name: Pull image
         run:  |
           docker pull ghcr.io/dannduati/jokes_api/jokesapi:latest || true
