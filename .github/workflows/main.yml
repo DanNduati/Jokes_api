@@ -1,0 +1,70 @@
+name: JokesAPI Continous Integration and Delivery
+
+on: [push]
+
+env:
+  IMAGE: ghcr.io/dannduati/$(echo $GITHUB_REPOSITORY | tr '[A-Z]' '[a-z]')/jokesapi
+
+jobs:
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          ref: main
+      - name: Login to Github Packages
+        run: echo ${CR_PAT} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
+        env:
+          CR_PAT: ${{ secrets.GITHUB_TOKEN }}
+      - name: Pull Image
+        run: |
+          docker pull ${{ env.IMAGE }}:latest || true
+      - name: Build image
+        run: |
+          docker build \
+            --cache-from ${{ env.IMAGE }}:latest \
+            --tag ${{ env.IMAGE }}:latest \
+            --file ./project/Dockerfile.prod \
+            "./project"
+      - name: Push Image
+        run: |
+          docker push ${{ env.IMAGE }}:latest
+
+  test:
+    name: Test Docker Image
+    runs-on: ubuntu latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          ref:  main
+      - name: Login to Github Packages
+        run:  echo ${CR_PAT} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
+        env:
+          CR_PAT: ${{ secrets.GITHUB_TOKEN }}
+      - name: Pull image
+        run:  |
+          docker pull ${{ env.IMAGE }}:latest || true
+      - name: Build image
+        run:  |
+          docker build  \
+          --cache-from ${{  env.IMAGE  }}:latest  \
+          --tag ${{ env.IMAGE }}:latest \
+          --file ./project/Dockerfile.prod  \
+          "./project"
+      - name: Run Container
+        run:  |
+          docker run  \
+          -d  \
+          --name fastapi-tdd \
+          -e PORT=8675  \
+          -e ENVIRONMENT=dev  \
+          -e DATABASE_URL=sqlite://sqlite.db  \
+          -e DATABASE_TEST_URL=sqlite://sqlite.db \
+          -p 5003:8765  \
+          ${{ env.IMAGE }}:latest
+      - name: Pytest
+        run:  docker exec fastapi-tdd python -m pytest .
