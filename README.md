@@ -29,7 +29,55 @@ $ docker compose exec web aerich upgrade
 ```bash
 $ docker compose exec web python -m pytest -v
 ```
-    
+#### Test it out with curl or [HTTPie]():
+```bash
+$ http --format-options json.sort_keys:false --pretty=all get http://0.0.0.0:6969/jokes/
+HTTP/1.1 200 OK
+content-length: 692
+content-type: application/json
+date: Sun, 12 Jun 2022 07:32:53 GMT
+server: uvicorn
+
+[
+    {
+        "id": 1,
+        "setup": "why was the pig covered in ink?",
+        "punchline": "Because he lived in a pen",
+        "type": "pun"
+    },
+    {
+        "id": 2,
+        "setup": "What is the difference between acne and a catholic priest?",
+        "punchline": "Acne usually comes on a boys face after he turns 12.",
+        "type": "dark"
+    },
+    {
+        "id": 3,
+        "setup": "What's the difference between an in-law and an outlaw?",
+        "punchline": "An outlaw is wanted.",
+        "type": "Misc"
+    },
+    {
+        "id": 4,
+        "setup": "Why are cats so good at video games?",
+        "punchline": "they have nine lives.",
+        "type": "misc"
+    },
+    {
+        "id": 5,
+        "setup": "what is the least spoken language in the world?",
+        "punchline": "Sign Language",
+        "type": "dark"
+    },
+    {
+        "id": 6,
+        "setup": "Why are cats so good at video games?",
+        "punchline": "they have nine lives.",
+        "type": "misc"
+    }
+]
+```
+You can also interact with the endpoints at http://0.0.0.0:6969/docs
 ## <b>Built with</b>
 - Python 3.7
 - FastAPI
