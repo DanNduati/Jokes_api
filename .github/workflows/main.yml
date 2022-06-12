@@ -30,7 +30,7 @@ jobs:
             "./project"
       - name: Push Image
         run: |
-          docker push ${{ env.IMAGE }}:latest
+          docker push ghcr.io/dannduati/jokes_api/jokesapi:latest
 
   test:
     name: Test Docker Image
@@ -47,7 +47,7 @@ jobs:
           CR_PAT: ${{ secrets.GITHUB_TOKEN }}
       - name: Pull image
         run:  |
-          docker pull ${{ env.IMAGE }}:latest || true
+          docker pull ghcr.io/dannduati/jokes_api/jokesapi:latest || true
       - name: Build image
         run:  |
           docker build  \
