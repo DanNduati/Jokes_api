@@ -1,7 +1,7 @@
-from typing import List, Optional
+from typing import List
 
 from app.models.models import Joke_pydantic, Jokes
-from app.models.schemas import JokeCreate, JokesResponse
+from app.models.schemas import JokeCreate
 from fastapi import APIRouter, HTTPException, status
 
 router = APIRouter(prefix="/jokes", tags=["Jokes"])

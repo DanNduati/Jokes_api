@@ -17,7 +17,8 @@ def get_settings_override():
 def test_app():
     # set up
     # Overide the get_settings() dependency using the app.dependency_overrides attribute
-    # To override a dependency for testing, you put as a key the original dependency (a function), and as the value, your dependency override (another function).
+    # To override a dependency for testing, you put as a key the original dependency
+    # (a function), and as the value, your dependency override (another function).
     app = create_application()
     app.dependency_overrides[get_settings] = get_settings_override
     # Starlette's TestClient allows you to make requests against your ASGI application, using the requests library.

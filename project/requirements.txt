@@ -29,7 +29,7 @@ h11==0.13.0
 httpie==3.2.1
 httptools==0.4.0
 idna==3.3
-importlib-metadata==4.11.3
+importlib-metadata<3.8
 iniconfig==1.1.1
 iso8601==1.0.2
 isort==5.10.1
