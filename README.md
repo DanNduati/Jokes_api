@@ -24,6 +24,11 @@ $ docker compose exec web aerich upgrade
 ```bash
 $ docker compose exec web python -m pytest -v
 ```
+#### Run tests with coverage
+```bash
+$ docker compose exec web python -m pytest --cov="."
+```
+
 #### Test it out with curl or [HTTPie](https://httpie.org/):
 ```bash
 $ http --format-options json.sort_keys:false --pretty=all get http://0.0.0.0:6969/jokes/
