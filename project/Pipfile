@@ -55,6 +55,7 @@ PyYAML = "==6.0"
 black = "*"
 isort = "*"
 httpie = "*"
+gunicorn = "*"
 
 [dev-packages]
 
