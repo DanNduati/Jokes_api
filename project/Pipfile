@@ -57,6 +57,7 @@ isort = "*"
 httpie = "*"
 gunicorn = "*"
 pytest-cov = "*"
+flake8 = "*"
 
 [dev-packages]
 
