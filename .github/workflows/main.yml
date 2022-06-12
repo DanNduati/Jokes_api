@@ -3,7 +3,7 @@ name: JokesAPI Continous Integration and Delivery
 on: [push]
 
 env:
-  IMAGE: ghcr.io/dannduati/$(echo $GITHUB_REPOSITORY | tr '[A-Z]' '[a-z]')/jokesapi
+  IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[A-Z]' '[a-z]')/jokesapi
 
 jobs:
   build:
@@ -34,7 +34,7 @@ jobs:
 
   test:
     name: Test Docker Image
-    runs-on: ubuntu latest
+    runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Checkout
