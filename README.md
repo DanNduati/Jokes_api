@@ -1,4 +1,5 @@
-<h1 align="center"><b>Test-Driven Development with FastAPI and Docker</b></h1>
+<h1 align="center"><b>JokesAPI<b></h1>
+<h2 align="center"><b>Test-Driven Development with FastAPI and Docker</b></h2>
 
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/DanNduati/Jokes_api)
 
@@ -29,7 +30,7 @@ $ docker compose exec web aerich upgrade
 ```bash
 $ docker compose exec web python -m pytest -v
 ```
-#### Test it out with curl or [HTTPie]():
+#### Test it out with curl or [HTTPie](https://httpie.org/):
 ```bash
 $ http --format-options json.sort_keys:false --pretty=all get http://0.0.0.0:6969/jokes/
 HTTP/1.1 200 OK
