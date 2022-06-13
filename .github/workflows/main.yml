@@ -68,3 +68,44 @@ jobs:
           ${{ env.IMAGE }}:latest
       - name: Pytest
         run:  docker exec fastapi-tdd python -m pytest .
+  
+  deploy:
+    name: Deploy to Heroku
+    runs-on: ubuntu-latest
+    needs: [build, test]
+    env:
+      HEROKU_APP_NAME: gentle-dusk-50795
+      HEROKU_REGISTRY_IMAGE: registry.heroku.com/${HEROKU_APP_NAME}/web
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          ref: main
+      - name: Login to Github Packages
+        run: echo ${CR_PAT} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
+        env:
+          CR_PAT: ${{ secrets.CR_PAT }}
+      - name: Pull image
+        run: |
+          docker pull ${{ env.IMAGE }}:latest || true
+      - name: Build image
+        run: |
+          docker build  \
+            --cache-from ${{  env.IMAGE  }}:latest  \
+            --tag ${{ env.IMAGE }}:latest \
+            --file ./project/Dockerfile.prod  \
+            "./project"
+      - name: Log in to Heroku Container Registry
+        run: docker login -u _ -p ${HEROKU_AUTH_TOKEN} registry.heroku.com
+        env:
+          HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_AUTH_TOKEN }}
+      - name: Push image to heroku registry
+        run: docker push ${{ env.HEROKU_REGISTRY_IMAGE }}
+      - name: Set environment variables
+        run: |
+          echo "HEROKU_REGISTRY_IMAGE=${{ env.HEROKU_REGISTRY_IMAGE }}" >> $GITHUB_ENV
+          echo "HEROKU_AUTH_TOKEN=${{ secrets.HEROKU_AUTH_TOKEN }}" >> $GITHUB_ENV
+      - name: Release
+        run: |
+          chmod +x ./release.sh
+          ./release.sh
