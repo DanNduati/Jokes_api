@@ -12,6 +12,12 @@ The JokesAPI is a test-driven development project. This is me learning how to de
 
 ## <b>Setup</b>
 ### <b>Docker</b>
+#### Clone the repository
+```bash
+git clone https://github.com/DanNduati/Jokes_api.git
+```
+
+Create a `.env` file similar to [`.env.example`](./project/.env.example) inside the `project/` directory. 
 Build the image and fire up the container in detached mode
 ```bash
 $ docker compose up -d --build
