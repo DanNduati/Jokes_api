@@ -1,9 +1,10 @@
 from typing import List, Optional, Union
 
-from app.models.models import Joke_pydantic, Jokes
-from app.models.schemas import JokeCreate
 from fastapi import APIRouter, HTTPException, Query, status
 from tortoise.expressions import Q
+
+from app.models.models import Joke_pydantic, Jokes
+from app.models.schemas import JokeCreate
 
 router = APIRouter(prefix="/jokes", tags=["Jokes"])
 
@@ -21,16 +22,29 @@ async def add_joke(joke: JokeCreate):
 
 @router.get("/", response_model=List[Joke_pydantic])
 async def get_jokes(
-    count: Optional[int] = Query(default=5, gt=0, le=10),
-    type: Union[List[str], None] = Query(
-        default=["Pun", "Programming", "Dark", "Misc", "Spooky", "Christmas"]
+    count: Optional[int] = Query(
+        default=10,
+        gt=0,
+        le=10,
+        title="Jokes count",
+        description="The number of jokes you want returned 0<count<=10",
     ),
-    contains: Optional[str] = "",
+    type: Union[List[str], None] = Query(
+        default=["Pun", "Programming", "Dark", "Misc", "Spooky", "Christmas"],
+        title="Joke type string",
+        description="Joke type from the 6 joke types ",
+        max_length=15,
+    ),
+    contains: Optional[str] = Query(
+        default="",
+        title="Joke search string",
+        description="Search for a joke that contains this search string",
+        max_length=50,
+    ),
 ):
     """
     Get jokes
     """
-    print(type)
     return await Joke_pydantic.from_queryset(
         Jokes.filter(type__in=type)
         .filter(Q(setup__icontains=contains) | Q(punchline__icontains=contains))

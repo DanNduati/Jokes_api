@@ -1,8 +1,9 @@
 import logging
 
+from fastapi import FastAPI
+
 from app.api import jokes, ping
 from app.db import init_db
-from fastapi import FastAPI
 
 log = logging.getLogger("uvicorn")
 

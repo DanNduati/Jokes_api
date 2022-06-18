@@ -71,19 +71,42 @@ def test_get_joke_invalid_id(test_app_with_db):
     assert response.status_code == 404
 
 
-def test_get_all_jokes(test_app_with_db):
+# Joke filtering tests
+def test_get_jokes_filters(test_app_with_db):
+    # Add a joke
     response = test_app_with_db.post(
         "/jokes/",
         data=json.dumps(
             {
-                "setup": "Why do cows wear bells?",
-                "punchline": "Because their horns don't work!",
-                "type": "Misc",
+                "setup": "I told my psychiatrist I got suicidal tendencies.",
+                "punchline": "He said from now on I have to pay in advance.",
+                "type": "Dark",
             }
         ),
     )
-    joke_id = response.json()["id"]
-    response = test_app_with_db.get("/jokes/")
+    response = test_app_with_db.get("/jokes/?type=Dark&count=1&contains=psychiatrist")
     assert response.status_code == 200
-    response_list = response.json()
-    assert len(list(filter(lambda d: d["id"] == joke_id, response_list))) == 1
+    response_dict = response.json()
+    # test the ?count filter
+    assert len(response_dict) == 1
+    # test out the ?type filter
+    assert response_dict[0]["type"] == "Dark"
+    # test out the ?contains filter
+    assert (
+        response_dict[0]["setup"] == "I told my psychiatrist I got suicidal tendencies."
+    )
+
+
+def test_get_jokes_filtering_invalid_count(test_app_with_db):
+    response = test_app_with_db.get("/jokes/?count=0")
+    assert response.status_code == 422
+    assert response.json() == {
+        "detail": [
+            {
+                "loc": ["query", "count"],
+                "msg": "ensure this value is greater than 0",
+                "type": "value_error.number.not_gt",
+                "ctx": {"limit_value": 0},
+            }
+        ]
+    }
