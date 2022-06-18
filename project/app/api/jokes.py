@@ -46,7 +46,7 @@ async def get_jokes(
     Get jokes
     """
     return await Joke_pydantic.from_queryset(
-        Jokes.filter(type__in=type)
+        Jokes.filter(type__in=[x.capitalize() for x in type])
         .filter(Q(setup__icontains=contains) | Q(punchline__icontains=contains))
         .limit(limit=count)
         .all()
