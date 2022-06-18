@@ -239,5 +239,10 @@ You can also interact with the endpoints at http://0.0.0.0:6969/docs
 - Pytest
 - Tortoise ORM
 
+## Todo
+- [ ] Implement remaining endpoints -> delete and update
+- [ ] Look into Uptime monitoring 
+- [ ] Experiment with rate limiting
+
 ## <b>License</b>
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge)](LICENSE)
