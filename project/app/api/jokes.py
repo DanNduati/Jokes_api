@@ -1,8 +1,9 @@
-from typing import List
+from typing import List, Optional, Union
 
 from app.models.models import Joke_pydantic, Jokes
 from app.models.schemas import JokeCreate
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Query, status
+from tortoise.expressions import Q
 
 router = APIRouter(prefix="/jokes", tags=["Jokes"])
 
@@ -19,11 +20,23 @@ async def add_joke(joke: JokeCreate):
 
 
 @router.get("/", response_model=List[Joke_pydantic])
-async def get_jokes():
+async def get_jokes(
+    count: Optional[int] = Query(default=5, gt=0, le=10),
+    type: Union[List[str], None] = Query(
+        default=["Pun", "Programming", "Dark", "Misc", "Spooky", "Christmas"]
+    ),
+    contains: Optional[str] = "",
+):
     """
-    Get all jokes
+    Get jokes
     """
-    return await Joke_pydantic.from_queryset(Jokes.all())
+    print(type)
+    return await Joke_pydantic.from_queryset(
+        Jokes.filter(type__in=type)
+        .filter(Q(setup__icontains=contains) | Q(punchline__icontains=contains))
+        .limit(limit=count)
+        .all()
+    )
 
 
 @router.get("/{joke_id}", response_model=Joke_pydantic)

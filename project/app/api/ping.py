@@ -10,5 +10,5 @@ async def pong(settings: Settings = Depends(get_settings)):
         "ping": "pong",
         "environment": settings.environment,
         "testing": settings.testing,
-        "updated": True
+        "updated": True,
     }

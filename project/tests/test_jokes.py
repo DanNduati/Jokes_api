@@ -11,7 +11,7 @@ def test_add_joke(test_app_with_db):
             {
                 "setup": "Why do cows wear bells?",
                 "punchline": "Because their horns don't work!",
-                "type": "misc",
+                "type": "Misc",
             }
         ),
     )
@@ -52,7 +52,7 @@ def test_get_joke(test_app_with_db):
             {
                 "setup": "Why do cows wear bells?",
                 "punchline": "Because their horns don't work!",
-                "type": "misc",
+                "type": "Misc",
             }
         ),
     )
@@ -78,7 +78,7 @@ def test_get_all_jokes(test_app_with_db):
             {
                 "setup": "Why do cows wear bells?",
                 "punchline": "Because their horns don't work!",
-                "type": "misc",
+                "type": "Misc",
             }
         ),
     )
