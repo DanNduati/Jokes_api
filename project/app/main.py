@@ -8,7 +8,19 @@ log = logging.getLogger("uvicorn")
 
 
 def create_application() -> FastAPI:
-    application = FastAPI()
+    application = FastAPI(
+        title="JokesAPI",
+        description=("The JokesAPI is a REST API that serves two part jokes."),
+        version="v1",
+        contact={
+            "name": "Nduati Daniel Chege",
+            "url": "https://github.com/DanNduati",
+        },
+        license_info={
+            "name": "MIT",
+            "url": "https://github.com/DanNduati/Jokes_api/blob/main/LICENSE",
+        },
+    )
     application.include_router(ping.router)
     application.include_router(jokes.router)
     return application
