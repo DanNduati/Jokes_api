@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def test_ping(test_app):
     response = test_app.get("/ping")
     assert response.status_code == 200
@@ -5,5 +7,5 @@ def test_ping(test_app):
         "environment": "dev",
         "ping": "pong",
         "testing": True,
-        "updated": True,
+        "timestamp": datetime.strftime(datetime.utcnow(), "%s"),
     }
