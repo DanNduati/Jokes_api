@@ -9,3 +9,7 @@ class JokeCreate(BaseModel):
 
 class JokesResponse(JokeCreate):
     id: int
+
+
+class DeleteResponse(BaseModel):
+    message: str
