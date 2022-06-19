@@ -41,10 +41,10 @@ Ive created a joke sourcing script as well and its usage and documentation can b
 ## <b>Endpoints and Usage</b>
 ### <b> 1. Adding/Submitting a Joke </b>
 ```http
-POST /jokes
+POST /jokes/
 ```
 __Sample request__
-```curl
+```bash
 curl -X 'POST' \
   'http://0.0.0.0:6969/jokes/' \
   -H 'accept: application/json' \
@@ -85,7 +85,7 @@ These are all the available joke types: ` Misc, Programming, Dark, Pun, Spooky, 
 `?type=<Joke type>`
 
 __Sample request__
-```curl
+```bash
 curl -X 'GET' \
   'http://0.0.0.0:6969/jokes/?type=pun' \
   -H 'accept: application/json'
@@ -113,7 +113,7 @@ If a search string filter is used, only jokes that contain the specified string 
 `?contains=<search string>`
 
 __Sample request__
-```curl
+```bash
 curl -X 'GET' \
   'http://0.0.0.0:6969/jokes/?contains=psychiatrist' \
   -H 'accept: application/json'
@@ -136,7 +136,7 @@ This filter allows you to set a certain amount of jokes to receive in a single c
 `?count=<number>`
 
 __Sample request__
-```curl
+```bash
 curl -X 'GET' \
   'http://0.0.0.0:6969/jokes/?count=5' \
   -H 'accept: application/json'
@@ -182,7 +182,7 @@ You can combine multiple filters by combining the query parameters. The paramete
 Example: `http://0.0.0.0:6969/jokes?type=programming&contains=program&count=2`
 
 __Request__
-```curl
+```bash
 curl -X 'GET' \
   'http://0.0.0.0:6969/jokes/?count=2&type=programming&contains=program' \
   -H 'accept: application/json'
@@ -206,12 +206,12 @@ __Sample response__
 ]
 ```
 
-#### Getting a joke by id
+### <b>3. Getting a joke by id</b>
 ```http
-GET /jokes/<id>
+GET /jokes/<id>/
 ```
 __Sample request__
-```curl
+```bash
 curl -X 'GET' \
   'http://0.0.0.0:6969/jokes/1' \
   -H 'accept: application/json'
@@ -225,9 +225,47 @@ __Sample response__
   "type": "Programming"
 }
 ```
-
-
-
+### <b> 4. Update a Joke by id </b>
+```http
+PUT /jokes/<id>/
+```
+__Sample request__
+```bash
+curl -X 'PUT' \
+  'http://0.0.0.0:6969/jokes/21/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "setup": "What'\''s the difference between an in-law and an outlaw?",
+    "punchline": "An outlaw is wanted.",
+    "type": "Misc"
+}'
+```
+__Sample response__
+```json
+{
+  "id": 256,
+  "setup": "What's the difference between an in-law and an outlaw?",
+  "punchline": "An outlaw is wanted.",
+  "type": "Misc"
+}
+```
+### <b> 5. Delete a Joke by id </b>
+```http
+DELETE /jokes/<id>/
+```
+__Sample request__
+```bash
+curl -X 'DELETE' \
+  'http://0.0.0.0:6969/jokes/2/' \
+  -H 'accept: application/json'
+```
+__Sample response__
+```json
+{
+  "message": "Deleted joke with id 2"
+}
+```
 You can also interact with the endpoints at http://0.0.0.0:6969/docs
 ## <b>Built with</b>
 - FastAPI
@@ -240,7 +278,7 @@ You can also interact with the endpoints at http://0.0.0.0:6969/docs
 - Tortoise ORM
 
 ## Todo
-- [ ] Implement remaining endpoints -> delete and update
+- [x] Implement remaining endpoints -> delete and update
 - [ ] Look into Uptime monitoring 
 - [ ] Experiment with rate limiting
 
