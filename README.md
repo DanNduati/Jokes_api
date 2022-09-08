@@ -84,14 +84,14 @@ All of these filtering options are enforced by the following url query parameter
 
 __Example Usage__
 #### __Joke type filter__
-These are all the available joke types: ` Misc, Programming, Dark, Pun, Spooky, Christmas`. To set the category you want, you need to parse it to the query parameter `?type`:
+These are all the available joke types: ` Misc, Programming, Dark, Pun, Spooky, Christmas`. To set the category you want, you need to parse it to the query parameter `?joke_type`:
 
-`?type=<Joke type>`
+`?joke_type=<Joke type>`
 
 __Sample request__
 ```bash
 curl -X 'GET' \
-  'https://gentle-dusk-50795.herokuapp.com/jokes/?type=pun' \
+  'https://gentle-dusk-50795.herokuapp.com/jokes/?joke_type=pun' \
   -H 'accept: application/json'
 ```
 __Sample response__

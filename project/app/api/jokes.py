@@ -44,7 +44,7 @@ async def get_jokes(
         max_length=50,
     ),
     id_range: Optional[str] = Query(
-        default="1-999", # ToDo: Think of a better way to do this
+        default="1-999",  # ToDo: Think of a better way to do this
         title="Jokes id range",
         description="Get jokes that are within the specified range of IDs",
         regex=r"\d+\-\d+",  # valid range should be of the form: "A decimal digit followed by the character - followed by a decimal digit"
@@ -54,15 +54,15 @@ async def get_jokes(
 
     Args:
         count (Optional[int], optional): _Number of jokes to return_. Defaults to 10.
-        type (Union[List[str], None], optional): _Joke type you want_. Defaults to Query( default=["Pun", "Programming", "Dark", "Misc", "Spooky", "Christmas"], title="Joke type string", description="Joke type from the 6 joke types ", max_length=15, ).
+        joke_type (Union[List[str], None], optional): _Joke type you want_. Defaults to Query( default=["Pun", "Programming", "Dark", "Misc", "Spooky", "Christmas"], title="Joke type string", description="Joke type from the 6 joke types ", max_length=15, ).
         contains (Optional[str], optional): _Search string_. Defaults to "".
         id_range (Optional[str],optional) : _Id Range of the jokes_ default to "".
     Returns:
         _list_: _List of Jokes_
     """
     return await Joke_pydantic.from_queryset(
-        Jokes.filter(id__range=[int(id_) for id_ in id_range.split("-")])
-        .filter(type__in=[x.capitalize() for x in joke_type])
+        Jokes.filter(type__in=[x.capitalize() for x in joke_type])
+        .filter(id__range=[int(id_) for id_ in id_range.split("-")])
         .filter(Q(setup__icontains=contains) | Q(punchline__icontains=contains))
         .limit(limit=count)
         .all()
