@@ -1,6 +1,9 @@
 name: Build and Test
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 env:
   IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[A-Z]' '[a-z]')/jokesapi
@@ -40,23 +43,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.4.0
         with:
-          ref:  main
+          ref: main
       - name: Login to Github Packages
-        run:  echo ${CR_PAT} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
+        run: echo ${CR_PAT} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
         env:
           CR_PAT: ${{ secrets.CR_PAT }}
       - name: Pull image
-        run:  |
+        run: |
           docker pull ghcr.io/dannduati/jokes_api/jokesapi:latest || true
       - name: Build image
-        run:  |
+        run: |
           docker build  \
           --cache-from ${{  env.IMAGE  }}:latest  \
           --tag ${{ env.IMAGE }}:latest \
           --file ./project/Dockerfile.prod  \
           "./project"
       - name: Run Container
-        run:  |
+        run: |
           docker run  \
           -d  \
           --name fastapi-tdd \
@@ -67,8 +70,8 @@ jobs:
           -p 5003:8765  \
           ${{ env.IMAGE }}:latest
       - name: Pytest
-        run:  docker exec fastapi-tdd python -m pytest .
-  
+        run: docker exec fastapi-tdd python -m pytest .
+
   deploy:
     name: Deploy to Heroku
     runs-on: ubuntu-latest
