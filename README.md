@@ -40,7 +40,7 @@ Ive created a joke sourcing script as well and its usage and documentation can b
 
 ## <b>Endpoints and Usage</b>
 1. Local BaseUrl: http://0.0.0.0:6969/
-2. Heroku BaseURL: https://gentle-dusk-50795.herokuapp.com/
+2. Heroku BaseURL: https://gentle-dusk-50795.herokuapp.com/jokes/
 ### <b> 1. Adding/Submitting a Joke </b>
 ```http
 POST /jokes/
@@ -48,7 +48,7 @@ POST /jokes/
 __Sample request__
 ```bash
 curl -X 'POST' \
-  'https://gentle-dusk-50795.herokuapp.com/' \
+  'https://gentle-dusk-50795.herokuapp.com/jokes/' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -91,7 +91,7 @@ These are all the available joke types: ` Misc, Programming, Dark, Pun, Spooky, 
 __Sample request__
 ```bash
 curl -X 'GET' \
-  'https://gentle-dusk-50795.herokuapp.com/?type=pun' \
+  'https://gentle-dusk-50795.herokuapp.com/jokes/?type=pun' \
   -H 'accept: application/json'
 ```
 __Sample response__
@@ -119,7 +119,7 @@ If a search string filter is used, only jokes that contain the specified string 
 __Sample request__
 ```bash
 curl -X 'GET' \
-  'https://gentle-dusk-50795.herokuapp.com/?contains=psychiatrist' \
+  'https://gentle-dusk-50795.herokuapp.com/jokes/?contains=psychiatrist' \
   -H 'accept: application/json'
 ```
 __Sample response__
@@ -142,7 +142,7 @@ This filter allows you to set a certain amount of jokes to receive in a single c
 __Sample request__
 ```bash
 curl -X 'GET' \
-  'https://gentle-dusk-50795.herokuapp.com/?count=5' \
+  'https://gentle-dusk-50795.herokuapp.com/jokes/?count=5' \
   -H 'accept: application/json'
 ```
 __Sample response__
@@ -189,7 +189,7 @@ If an ID Range filter is used, only jokes inside the specified ID range are retu
 __Sample request__
 ```bash
 curl -X 'GET' \
-  'https://gentle-dusk-50795.herokuapp.com/?id_range=6-9' \
+  'https://gentle-dusk-50795.herokuapp.com/jokes/?id_range=6-9' \
   -H 'accept: application/json'
 ```
 __Sample response__
@@ -225,12 +225,12 @@ __Sample response__
 #### __Applying multiple filters__
 You can combine multiple filters by combining the query parameters. The parameters need to be prefixed by a single question mark (?) and separate key/value pairs need to be delimited from another by an ampersand (&). Keys are separated from values with an equals sign (=).
 
-Example: `https://gentle-dusk-50795.herokuapp.com/?count=2&joke_type=Programming&contains=program&id_range=1-5`
+Example: `https://gentle-dusk-50795.herokuapp.com/jokes/?count=2&joke_type=Programming&contains=program&id_range=1-5`
 
 __Request__
 ```bash
 curl -X 'GET' \
-  'https://gentle-dusk-50795.herokuapp.com/?count=2&joke_type=Programming&contains=program&id_range=1-5' \
+  'https://gentle-dusk-50795.herokuapp.com/jokes/?count=2&joke_type=Programming&contains=program&id_range=1-5' \
   -H 'accept: application/json'
 ```
 
@@ -259,7 +259,7 @@ GET /jokes/<id>/
 __Sample request__
 ```bash
 curl -X 'GET' \
-  'https://gentle-dusk-50795.herokuapp.com/1' \
+  'https://gentle-dusk-50795.herokuapp.com/jokes/1' \
   -H 'accept: application/json'
 ```
 __Sample response__
@@ -278,7 +278,7 @@ PUT /jokes/<id>/
 __Sample request__
 ```bash
 curl -X 'PUT' \
-  'https://gentle-dusk-50795.herokuapp.com/21/' \
+  'https://gentle-dusk-50795.herokuapp.com/jokes/21/' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -303,7 +303,7 @@ DELETE /jokes/<id>/
 __Sample request__
 ```bash
 curl -X 'DELETE' \
-  'https://gentle-dusk-50795.herokuapp.com/2/' \
+  'https://gentle-dusk-50795.herokuapp.com/jokes/2/' \
   -H 'accept: application/json'
 ```
 __Sample response__
