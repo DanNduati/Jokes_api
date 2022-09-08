@@ -39,6 +39,8 @@ Ive created a joke sourcing script as well and its usage and documentation can b
 
 
 ## <b>Endpoints and Usage</b>
+1. Local BaseUrl: http://0.0.0.0:6969/
+2. Heroku BaseURL: https://gentle-dusk-50795.herokuapp.com/
 ### <b> 1. Adding/Submitting a Joke </b>
 ```http
 POST /jokes/
@@ -46,7 +48,7 @@ POST /jokes/
 __Sample request__
 ```bash
 curl -X 'POST' \
-  'http://0.0.0.0:6969/jokes/' \
+  'https://gentle-dusk-50795.herokuapp.com/' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -72,11 +74,13 @@ The JokesAPI has versatile filtering options. There are three different filterin
 - Joke Type
 - Search string
 - Joke Count
+- ID Range
 
 All of these filtering options are enforced by the following url query parameters to the `/jokes` endpoint:
 - `?type`
 - `?contains`
 - `?count`
+- `?id_range`
 
 __Example Usage__
 #### __Joke type filter__
@@ -87,7 +91,7 @@ These are all the available joke types: ` Misc, Programming, Dark, Pun, Spooky, 
 __Sample request__
 ```bash
 curl -X 'GET' \
-  'http://0.0.0.0:6969/jokes/?type=pun' \
+  'https://gentle-dusk-50795.herokuapp.com/?type=pun' \
   -H 'accept: application/json'
 ```
 __Sample response__
@@ -115,7 +119,7 @@ If a search string filter is used, only jokes that contain the specified string 
 __Sample request__
 ```bash
 curl -X 'GET' \
-  'http://0.0.0.0:6969/jokes/?contains=psychiatrist' \
+  'https://gentle-dusk-50795.herokuapp.com/?contains=psychiatrist' \
   -H 'accept: application/json'
 ```
 __Sample response__
@@ -138,7 +142,7 @@ This filter allows you to set a certain amount of jokes to receive in a single c
 __Sample request__
 ```bash
 curl -X 'GET' \
-  'http://0.0.0.0:6969/jokes/?count=5' \
+  'https://gentle-dusk-50795.herokuapp.com/?count=5' \
   -H 'accept: application/json'
 ```
 __Sample response__
@@ -176,15 +180,57 @@ __Sample response__
   }
 ]
 ```
+
+#### __ID Range filter__
+If an ID Range filter is used, only jokes inside the specified ID range are returned. Parse the ID range string to the `?id_range` query parameter as follows:
+
+`?id_range=number-number`
+
+__Sample request__
+```bash
+curl -X 'GET' \
+  'https://gentle-dusk-50795.herokuapp.com/?id_range=6-9' \
+  -H 'accept: application/json'
+```
+__Sample response__
+```json
+[
+  {
+    "id": 6,
+    "setup": "Why do programmers confuse Halloween and Christmas?",
+    "punchline": "Because Oct 31 = Dec 25",
+    "type": "Programming"
+  },
+  {
+    "id": 7,
+    "setup": "Why does no one like SQLrillex?",
+    "punchline": "He keeps dropping the database.",
+    "type": "Programming"
+  },
+  {
+    "id": 8,
+    "setup": "Thank you student loans for getting me through college.",
+    "punchline": "I don't think I'll ever be able to repay you.",
+    "type": "Pun"
+  },
+  {
+    "id": 9,
+    "setup": "Why is every gender equality officer female?",
+    "punchline": "Because it's cheaper.",
+    "type": "Misc"
+  }
+]
+```
+
 #### __Applying multiple filters__
 You can combine multiple filters by combining the query parameters. The parameters need to be prefixed by a single question mark (?) and separate key/value pairs need to be delimited from another by an ampersand (&). Keys are separated from values with an equals sign (=).
 
-Example: `http://0.0.0.0:6969/jokes?type=programming&contains=program&count=2`
+Example: `https://gentle-dusk-50795.herokuapp.com/?count=2&joke_type=Programming&contains=program&id_range=1-5`
 
 __Request__
 ```bash
 curl -X 'GET' \
-  'http://0.0.0.0:6969/jokes/?count=2&type=programming&contains=program' \
+  'https://gentle-dusk-50795.herokuapp.com/?count=2&joke_type=Programming&contains=program&id_range=1-5' \
   -H 'accept: application/json'
 ```
 
@@ -213,7 +259,7 @@ GET /jokes/<id>/
 __Sample request__
 ```bash
 curl -X 'GET' \
-  'http://0.0.0.0:6969/jokes/1' \
+  'https://gentle-dusk-50795.herokuapp.com/1' \
   -H 'accept: application/json'
 ```
 __Sample response__
@@ -232,7 +278,7 @@ PUT /jokes/<id>/
 __Sample request__
 ```bash
 curl -X 'PUT' \
-  'http://0.0.0.0:6969/jokes/21/' \
+  'https://gentle-dusk-50795.herokuapp.com/21/' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -257,7 +303,7 @@ DELETE /jokes/<id>/
 __Sample request__
 ```bash
 curl -X 'DELETE' \
-  'http://0.0.0.0:6969/jokes/2/' \
+  'https://gentle-dusk-50795.herokuapp.com/2/' \
   -H 'accept: application/json'
 ```
 __Sample response__
@@ -270,17 +316,13 @@ You can also interact with the endpoints at http://0.0.0.0:6969/docs
 ## <b>Built with</b>
 - FastAPI
 - Docker 
-- Pipenv
-- Black
-- Isort
-- Flake8
-- Pytest
-- Tortoise ORM
+- [Jokesborrower](https://github.com/DanNduati/Jokes_borrower)
 
 ## Todo
 - [x] Implement remaining endpoints -> delete and update
-- [ ] Look into Uptime monitoring 
-- [ ] Experiment with rate limiting
+- [x] Implement id range joke filtering option
+- [x] Look into Uptime monitoring 
+- [x] Experiment with rate limiting
 
 ## <b>License</b>
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge)](LICENSE)
