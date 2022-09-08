@@ -11,10 +11,11 @@ def create_application() -> FastAPI:
     application = FastAPI(
         title="JokesAPI",
         description=("The JokesAPI is a REST API that serves two part jokes."),
-        version="v1",
+        version="0.0.1",
+        docs_url="/",
         contact={
-            "name": "Nduati Daniel Chege",
-            "url": "https://github.com/DanNduati",
+            "name": "Nduati Daniel",
+            "url": "https://danielchege.me",
         },
         license_info={
             "name": "MIT",
